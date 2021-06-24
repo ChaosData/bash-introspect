@@ -123,6 +123,23 @@ extern int read_from_stdin;
 
 extern char* __attribute__((weak)) current_readline_line;
 
+extern int show_all_var_attributes(int v, int nodefs);
+
+typedef struct variable {
+  char *name;			/* Symbol that the user types. */
+  char *value;			/* Value that is returned. */
+  char *exportstr;		/* String for the environment. */
+  void *dynamic_value;	/* Function called to return a `dynamic'
+				   value for a variable, like $SECONDS
+				   or $RANDOM. */
+  void *assign_func; /* Function called when this `special
+				   variable' is assigned a value in
+				   bind_variable. */
+  int attributes;		/* export, readonly, array, invisible... */
+  int context;			/* Which context this variable belongs to. */
+} SHELL_VAR;
+extern SHELL_VAR** all_shell_functions();
+
 char const* get_type(BASH_INPUT* b) {
   switch (b->type) {
     case st_none:
@@ -436,9 +453,21 @@ int introspect_wrapper(void* list) {
     return (EXECUTION_FAILURE);
   }
 
-  puts("[bash-introspect]");
+  puts("<introspect>");
   dump_proc_info();
   introspect();
+
+  puts("[functions]");
+  int r = show_all_var_attributes(0, 0);
+  (void)r;
+  //printf("r: %d\n", r);
+
+  //SHELL_VAR** vs = all_shell_functions();
+  //printf("vs: %p\n", (void*)vs);
+
+  puts("[variables]");
+  r = show_all_var_attributes(1, 0);
+  puts("</introspect>");
 
   fflush(stdout);
   return (EXECUTION_SUCCESS);

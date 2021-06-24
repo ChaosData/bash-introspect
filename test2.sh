@@ -1,4 +1,11 @@
 unset HISTFILE
+foo () {
+  ls
+}
+function bar {
+  ls
+}
+
 if [ -f /tmp/foo ]; then
   echo "this is a secret"
 fi

@@ -20,7 +20,7 @@ $ introspect
 ```
 $ bash ./test2.sh
 wat
-[bash-introspect]
+<introspect>
 exe: /usr/bin/bash
 cmdline: 'bash' './test2.sh'
 [bash_input: 0x56464be9f240]
@@ -54,6 +54,20 @@ echo "post"
 
 echo "done"
 ----
+[functions]
+bar () 
+{ 
+    ls
+}
+foo () 
+{ 
+    ls
+}
+[variables]
+declare -- BASH="/usr/bin/bash"
+declare -r BASHOPTS="checkwinsize:cmdhist:complete_fullquote:extquote:force_fignore:globasciiranges:hostcomplete:interactive_comments:progcomp:promptvars:sourcepath"
+...
+</introspect>
 post
 done
 ```
@@ -61,7 +75,7 @@ done
 ```
 $ bash < ./test2.sh
 wat
-[bash-introspect]
+<introspect>
 exe: /usr/bin/bash
 cmdline: 'bash'
 [bash_input: 0x563472cf9240]
@@ -95,6 +109,20 @@ echo "post"
 
 echo "done"
 ----
+[functions]
+bar () 
+{ 
+    ls
+}
+foo () 
+{ 
+    ls
+}
+[variables]
+declare -- BASH="/usr/bin/bash"
+declare -r BASHOPTS="checkwinsize:cmdhist:complete_fullquote:extquote:force_fignore:globasciiranges:hostcomplete:interactive_comments:progcomp:promptvars:sourcepath"
+...
+</introspect>
 post
 done
 ```
@@ -102,7 +130,7 @@ done
 ```
 $ cat test2.sh | bash
 wat
-[bash-introspect]
+<introspect>
 exe: /usr/bin/bash
 cmdline: 'bash'
 [bash_input: 0x55738b413240]
@@ -124,13 +152,27 @@ echo "post"
 
 echo "done"
 ----
+[functions]
+bar () 
+{ 
+    ls
+}
+foo () 
+{ 
+    ls
+}
+[variables]
+declare -- BASH="/usr/bin/bash"
+declare -r BASHOPTS="checkwinsize:cmdhist:complete_fullquote:extquote:force_fignore:globasciiranges:hostcomplete:interactive_comments:progcomp:promptvars:sourcepath"
+...
+</introspect>
 post
 done
 ```
 
 ```
 $ echo -e 'enable -f $PWD/introspect.so introspect ; introspect\necho done' | bash
-[bash-introspect]
+<introspect>
 exe: /usr/bin/bash
 cmdline: 'bash'
 [bash_input: 0x560d19439240]
@@ -145,5 +187,11 @@ r == 0
 ----
 echo done
 ----
+[functions]
+[variables]
+declare -- BASH="/usr/bin/bash"
+declare -r BASHOPTS="checkwinsize:cmdhist:complete_fullquote:extquote:force_fignore:globasciiranges:hostcomplete:interactive_comments:progcomp:promptvars:sourcepath"
+...
+</introspect>
 done
 ```
