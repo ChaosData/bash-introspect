@@ -1,3 +1,8 @@
+/*
+Copyright (c) 2021 NCC Group Security Services, Inc. All rights reserved.
+Licensed under Dual BSD/GPLv3 per the repo LICENSE file.
+*/
+
 // $ gcc -std=c11 -Wall -Wextra -shared -fpic -o introspect.so introspect.c
 // $ enable -f $PWD/introspect.so introspect
 // $ introspect
@@ -62,48 +67,6 @@ typedef struct {
   int (*getter)();
   int (*ungetter)();
 } BASH_INPUT;
-
-/*
-extern void* __attribute__((weak)) alias_expand;
-
-typedef struct string_saver_alias {
-  struct string_saver_alias *next;
-  int expand_alias;
-  char *saved_line;
-  void *expander;
-  size_t saved_line_size, saved_line_index;
-  int saved_line_terminator;
-  int flags;
-} string_saver_alias_t;
-
-typedef struct string_saver_noalias {
-  struct string_saver_noalias *next;
-  int expand_alias;
-  char *saved_line;
-  size_t saved_line_size, saved_line_index;
-  int saved_line_terminator;
-  int flags;
-} string_saver_noalias_t;
-
-extern void* pushed_string_list;
-
-void dump_string_saver() {
-  printf("pushed_string_list: %p\n", pushed_string_list);
-  if (alias_expand == NULL) {
-    string_saver_noalias_t* string_list = (string_saver_noalias_t*)pushed_string_list;
-    while (string_list != NULL) {
-      printf("line: %s\n", string_list->saved_line);
-      string_list = string_list->next;
-    }
-  } else {
-    string_saver_alias_t* string_list = (string_saver_alias_t*)pushed_string_list;
-    while (string_list != NULL) {
-      printf("line: %s\n", string_list->saved_line);
-      string_list = string_list->next;
-    }
-  }
-}
-*/
 
 typedef struct _hist_entry {
   char *line;
